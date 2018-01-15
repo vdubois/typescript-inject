@@ -50,7 +50,7 @@ function getInstanceWithSimilarNameExists(instanceName: string) {
 
 function getInstanceWithName(instanceName: string): any {
     const instances = InversionOfControlContainer.getInstance()['instances'];
-    let instance = instances.find(instance => instance.instanceName === instanceName).instanceValue;
+    const instance = instances.find(containerInstance => containerInstance.instanceName === instanceName).instanceValue;
     if (typeof instance === 'function') {
         return instance.call(instance);
     }
