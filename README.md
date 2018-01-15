@@ -8,14 +8,18 @@ The goal of this package is to provide a simple Dependency Injection library wit
 
 ## Examples
 
-### Register instances
+### Registering instances
 
 ```js
 register('ConfigurationService', () => new ConfigurationService());
 ```
 
-### Use instances
+### Using instances
 
 ```js
 const configurationService = inject<ConfigurationService>('ConfigurationService');
 ```
+
+### Todos
+
+* Handling singletons
