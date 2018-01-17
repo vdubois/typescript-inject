@@ -15,12 +15,20 @@ class InversionOfControlContainer {
     }
 }
 exports.InversionOfControlContainer = InversionOfControlContainer;
+function instanceAlreadyExists(instanceName) {
+    return InversionOfControlContainer.getInstance()['instances'].some(instance => instance.instanceName === instanceName);
+}
 function register(instanceName, instanceValue, isSingleton = true) {
-    InversionOfControlContainer.getInstance()['instances'].push({
-        instanceName: instanceName,
-        instanceValue: instanceValue,
-        isSingleton: isSingleton
-    });
+    if (instanceAlreadyExists(instanceName)) {
+        throw new Error(`An instance with a name such as '${instanceName}' is already registered`);
+    }
+    else {
+        InversionOfControlContainer.getInstance()['instances'].push({
+            instanceName: instanceName,
+            instanceValue: instanceValue,
+            isSingleton: isSingleton
+        });
+    }
 }
 exports.register = register;
 function instanceExists(instanceName) {
@@ -37,7 +45,7 @@ function getInstanceWithSimilarNameExists(instanceName) {
 }
 function getInstanceWithName(instanceName) {
     const instances = InversionOfControlContainer.getInstance()['instances'];
-    let instance = instances.find(instance => instance.instanceName === instanceName).instanceValue;
+    const instance = instances.find(containerInstance => containerInstance.instanceName === instanceName).instanceValue;
     if (typeof instance === 'function') {
         return instance.call(instance);
     }

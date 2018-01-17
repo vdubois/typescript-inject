@@ -25,12 +25,20 @@ export class InversionOfControlContainer {
     }
 }
 
+function instanceAlreadyExists(instanceName: string) {
+    return InversionOfControlContainer.getInstance()['instances'].some(instance => instance.instanceName === instanceName);
+}
+
 export function register(instanceName: string, instanceValue: string | Function, isSingleton: boolean = true): void {
-    InversionOfControlContainer.getInstance()['instances'].push({
-        instanceName: instanceName,
-        instanceValue: instanceValue,
-        isSingleton: isSingleton
-    });
+    if (instanceAlreadyExists(instanceName)) {
+        throw new Error(`An instance with a name such as '${instanceName}' is already registered`)
+    } else {
+        InversionOfControlContainer.getInstance()['instances'].push({
+            instanceName: instanceName,
+            instanceValue: instanceValue,
+            isSingleton: isSingleton
+        });
+    }
 }
 
 function instanceExists(instanceName: string) {

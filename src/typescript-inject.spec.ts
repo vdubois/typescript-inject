@@ -46,6 +46,23 @@ describe('Typescript Dependency Injection library', () => {
             }]);
             done();
         });
+
+        it('should throw an error if an instance is already registered', done => {
+            // GIVEN
+
+            // WHEN
+            register('MyString', 'MyValue');
+            try {
+                register('MyString', 'MyValue');
+                fail('we should not reach here because an error should have been thrown');
+                done();
+            } catch (exception) {
+                // THEN
+                expect(exception).not.toBeNull();
+                expect(exception.message).toEqual(`An instance with a name such as 'MyString' is already registered`);
+                done();
+            }
+        });
     });
 
     describe('inject function', () => {

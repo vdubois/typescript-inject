@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "ts-node ./spec/runner.ts",
+    "test": "tsc && ts-node ./spec/runner.ts",
     "coverage": "./node_modules/.bin/nyc ./node_modules/.bin/ts-node ./spec/runner.ts",
     "lint": "node_modules/.bin/tslint -c tslint.json 'src/**/*.ts' -e '**/*.d.ts'",
     "check": "npm run lint && npm test"
