@@ -31,7 +31,7 @@ function instanceAlreadyExists(instanceName: string) {
 
 export function register(instanceName: string, instanceValue: string | Function, isSingleton: boolean = true): void {
     if (instanceAlreadyExists(instanceName)) {
-        throw new Error(`An instance with a name such as '${instanceName}' is already registered`)
+        throw new Error(`An instance with a name such as '${instanceName}' is already registered`);
     } else {
         InversionOfControlContainer.getInstance()['instances'].push({
             instanceName: instanceName,
