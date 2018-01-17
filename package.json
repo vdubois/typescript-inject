@@ -1,6 +1,6 @@
 {
   "name": "typescript-inject",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Typescript Dependency Injection Library",
   "main": "index.js",
   "typings": "index.d.ts",
