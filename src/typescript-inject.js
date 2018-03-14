@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class InversionOfControlContainer {
     constructor() {
         this.instances = [];
+        this.singletonInstancesValues = [];
     }
     static getInstance() {
         if (!this.container) {
@@ -45,11 +46,21 @@ function getInstanceWithSimilarNameExists(instanceName) {
 }
 function getInstanceWithName(instanceName) {
     const instances = InversionOfControlContainer.getInstance()['instances'];
-    const instance = instances.find(containerInstance => containerInstance.instanceName === instanceName).instanceValue;
-    if (typeof instance === 'function') {
-        return instance.call(instance);
+    const instance = instances.find(containerInstance => containerInstance.instanceName === instanceName);
+    const instanceValue = instance.instanceValue;
+    if (typeof instanceValue === 'function') {
+        if (instance.isSingleton === true) {
+            const singletonInstancesValues = InversionOfControlContainer.getInstance()['singletonInstancesValues'];
+            if (!singletonInstancesValues[instance.instanceName]) {
+                singletonInstancesValues[instance.instanceName] = instanceValue.call(instanceValue);
+            }
+            return singletonInstancesValues[instance.instanceName];
+        }
+        else {
+            return instanceValue.call(instanceValue);
+        }
     }
-    return instance;
+    return instanceValue;
 }
 function inject(instanceName) {
     if (instanceExists(instanceName)) {

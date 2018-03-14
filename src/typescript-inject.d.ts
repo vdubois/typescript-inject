@@ -1,6 +1,7 @@
 export declare class InversionOfControlContainer {
     static container: InversionOfControlContainer;
     private instances;
+    private singletonInstancesValues;
     private constructor();
     static getInstance(): InversionOfControlContainer;
     private clearInstances();

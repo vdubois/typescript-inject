@@ -20,6 +20,3 @@ register('ConfigurationService', () => new ConfigurationService());
 const configurationService = inject<ConfigurationService>('ConfigurationService');
 ```
 
-### Todos
-
-* Handling singletons
