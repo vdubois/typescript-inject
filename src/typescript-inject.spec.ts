@@ -63,6 +63,20 @@ describe('Typescript Dependency Injection library', () => {
         done();
       }
     });
+
+    it('should not throw an error if an instance is already registered and override is true', done => {
+      // GIVEN
+
+      // WHEN
+      register('MyString', 'MyValue');
+      try {
+        register('MyString', 'MyValue', { override: true });
+        done();
+      } catch (exception) {
+        // THEN
+        fail('we should not reach here because no error should have been thrown');
+      }
+    });
   });
 
   describe('inject function', () => {

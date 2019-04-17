@@ -19,15 +19,18 @@ exports.InversionOfControlContainer = InversionOfControlContainer;
 function instanceAlreadyExists(instanceName) {
     return InversionOfControlContainer.getInstance()['instances'].some(instance => instance.instanceName === instanceName);
 }
-function register(instanceName, instanceValue, isSingleton = true) {
-    if (instanceAlreadyExists(instanceName)) {
+function register(instanceName, instanceValue, registerOptions = {
+    isSingleton: true,
+    override: false
+}) {
+    if (registerOptions.override === false && instanceAlreadyExists(instanceName)) {
         throw new Error(`An instance with a name such as '${instanceName}' is already registered`);
     }
     else {
         InversionOfControlContainer.getInstance()['instances'].push({
             instanceName: instanceName,
             instanceValue: instanceValue,
-            isSingleton: isSingleton
+            isSingleton: registerOptions.isSingleton
         });
     }
 }
